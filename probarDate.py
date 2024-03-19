@@ -1,3 +1,8 @@
 from date import Date
-unDia = Date(4, 3, 2024)
-print(unDia.is_leap_year(2024))
+def main():
+    unDia = Date(1, 1, 2005)
+    print(f"Días desde el 1/1/1900: {unDia.get_delta_days()}\n Día de la semana: {unDia.weekday}")
+    print(f"¿Fin de semana? {unDia.is_weekend}\n Fecha corta: {unDia.short_date}\n Fecha larga: {unDia.__str__()}")
+
+
+main()
