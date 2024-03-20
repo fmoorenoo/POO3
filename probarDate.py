@@ -1,7 +1,7 @@
 from date import Date
 def main():
     fecha1 = Date(30, 3, 2024)
-    fecha2 = Date(20, 3, 2024)
+    fecha2 = Date(20, 4, 2024)
     print(f"Días desde el 1/1/1900: {fecha1.get_delta_days()}") 
     print(f"Día de la semana: {fecha1.weekday}")
     print(f"¿Fin de semana? {fecha1.is_weekend}")
@@ -11,8 +11,9 @@ def main():
     print(f"¿Fecha 1 < que fecha 2? {fecha1 < fecha2}")
     print(f"¿Fecha 1 > que fecha 2? {fecha1 > fecha2}")
     print(f"¿Fecha 1 = que fecha 2? {fecha1 == fecha2}")
+    print(f"Dias de diferencia entre las fechas: {fecha1 - fecha2}")
+    print(f"Fecha resultante despues de restar: {fecha1 - 365}")
 
     
-
 
 main()
