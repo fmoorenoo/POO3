@@ -93,16 +93,48 @@ class Date:
 
 
     def __sub__(self, other: Date | int) -> int | Date:
-        '''Dos opciones:
-        1) Restar una fecha a otra fecha -> Número de días
-        2) Restar un número de días la fecha -> Nueva fecha'''
+        if isinstance(other, Date):
+            if self.get_delta_days() > other.get_delta_days():
+                return self.get_delta_days() - other.get_delta_days()
+            else:
+                return other.get_delta_days() - self.get_delta_days()
+            
+        elif isinstance(other, int):
+            days = self.get_delta_days() - other
+            if days < 0:
+                print("La fecha resultante es anterior al 01/01/1900")
+            year = 1900
+            while True:
+                if Date.is_leap_year(year):
+                    daysInYear = 366  
+                else:
+                    daysInYear = 365
+
+                if days > daysInYear:
+                    days -= daysInYear
+                    year += 1
+                else:
+                    break
+
+            month = 1
+            while True:
+                daysInMonth = Date.days_in_month(month, year)
+                if days >= daysInMonth:
+                    days -= daysInMonth
+                    month += 1
+                else:
+                    break
+
+            return Date(days + 1, month, year)
         
 
     def __lt__(self, other: Date) -> bool:
         return self.get_delta_days() < other.get_delta_days()
 
+
     def __gt__(self, other: Date) -> bool:
         return self.get_delta_days() > other.get_delta_days()
+
 
     def __eq__(self, other: Date) -> bool:
         return self.get_delta_days() == other.get_delta_days()
