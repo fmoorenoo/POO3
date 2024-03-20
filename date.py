@@ -6,11 +6,11 @@ class Date:
         self.day = day
         self.month = month
         self.year = year
-        if day <= 0 and day > 31:
+        if day <= 0 or day > 31:
             day = 1
-        if month <= 0 and month > 12:
+        if month <= 0 or month > 12:
             month = 1
-        if year < 1900 and year > 2050:
+        if year < 1900 or year > 2050:
             year = 1900
 
 
@@ -19,6 +19,7 @@ class Date:
         resultado = False
         if year % 4 == 0 and year % 100 != 0 or year % 4 == 0 and year % 100 == 0 and year % 400 == 0:
             resultado = True
+        return resultado
 
 
     @staticmethod
@@ -73,19 +74,35 @@ class Date:
 
 
     def __add__(self, days: int) -> Date:
-        '''Sumar un número de días a la fecha'''
+        year = self.year
+        month = self.month
+        day = self.day
+        while days > 0:
+            daysInMonth = Date.days_in_month(month, year) - day + 1
+            if days >= daysInMonth:
+                days -= daysInMonth
+                month += 1
+                if month > 12:
+                    month = 1
+                    year += 1
+                day = 1
+            else:
+                day += days
+                days = 0
+        return Date(day, month, year)
+
 
     def __sub__(self, other: Date | int) -> int | Date:
         '''Dos opciones:
         1) Restar una fecha a otra fecha -> Número de días
         2) Restar un número de días la fecha -> Nueva fecha'''
-        ...
+        
 
-    def __lt__(self, other) -> bool:
-        ...
+    def __lt__(self, other: Date) -> bool:
+        return self.get_delta_days() < other.get_delta_days()
 
-    def __gt__(self, other) -> bool:
-        ...
+    def __gt__(self, other: Date) -> bool:
+        return self.get_delta_days() > other.get_delta_days()
 
-    def __eq__(self, other) -> bool:
-        ...
+    def __eq__(self, other: Date) -> bool:
+        return self.get_delta_days() == other.get_delta_days()
