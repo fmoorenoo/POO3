@@ -10,4 +10,21 @@ class Romanos:
                 numEntero -= numeros[i]
             i += 1
         return romano
+    
+    
+    def romanoAEntero(numRomano):
+        romanos = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+        entero = 0
+        for i in range(len(numRomano)):
+            if i > 0 and romanos[numRomano[i]] > romanos[numRomano[i - 1]]:
+                entero += romanos[numRomano[i]] - 2 * romanos[numRomano[i - 1]]
+            else:
+                entero += romanos[numRomano[i]]
+        return entero
+    
+
+if __name__ == '__main__':
+    print(Romanos.enteroARomano(5))
+    print(Romanos.romanoAEntero('IX'))
+
 
